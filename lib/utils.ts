@@ -56,11 +56,7 @@ export const formUrlQuery = ({
   searchParams,
   key,
   value,
-}: {
-  searchParams: URLSearchParams;
-  key: string;
-  value: string;
-}) => {
+}: FormUrlQueryParams) => {
   const params = { ...qs.parse(searchParams.toString()), [key]: value };
 
   return `${window.location.pathname}?${qs.stringify(params, {
@@ -72,11 +68,8 @@ export const formUrlQuery = ({
 export function removeKeysFromQuery({
   searchParams,
   keysToRemove,
-}: {
-  searchParams: URLSearchParams;
-  keysToRemove: string[];
-}) {
-  const currentUrl = qs.parse(searchParams.toString());
+}: RemoveUrlQueryParams) {
+  const currentUrl = qs.parse(searchParams);
 
   keysToRemove.forEach((key) => {
     delete currentUrl[key];
@@ -91,11 +84,15 @@ export function removeKeysFromQuery({
 }
 
 // DEBOUNCE
-export const debounce = (func: (...args: unknown[]) => void, delay: number) => {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const debounce = (func: (...args: any[]) => void, delay: number) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   let timeoutId: NodeJS.Timeout | null;
-  return (...args: unknown[]) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  return (...args: any[]) => {
+    /* eslint-disable @typescript-eslint/no-explicit-any */
     if (timeoutId) clearTimeout(timeoutId);
-    timeoutId = setTimeout(() => func(...args), delay);
+    timeoutId = setTimeout(() => func.apply(null, args), delay);
   };
 };
 
@@ -103,7 +100,9 @@ export const debounce = (func: (...args: unknown[]) => void, delay: number) => {
 export type AspectRatioKey = keyof typeof aspectRatioOptions;
 export const getImageSize = (
   type: string,
-  image: Record<string, unknown>,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  image: any,
+  /* eslint-disable @typescript-eslint/no-explicit-any */
   dimension: "width" | "height"
 ): number => {
   if (type === "fill") {
@@ -112,7 +111,7 @@ export const getImageSize = (
       1000
     );
   }
-  return (image?.[dimension] as number) || 1000;
+  return image?.[dimension] || 1000;
 };
 
 // DOWNLOAD IMAGE
@@ -137,8 +136,10 @@ export const download = (url: string, filename: string) => {
 };
 
 // DEEP MERGE OBJECTS
-export const deepMergeObjects = (obj1: Record<string, unknown>, obj2: Record<string, unknown>) => {
-  if (obj2 === null || obj2 === undefined) {
+/* eslint-disable @typescript-eslint/no-explicit-any */
+export const deepMergeObjects = (obj1: any, obj2: any) => {
+  /* eslint-disable @typescript-eslint/no-explicit-any */
+  if(obj2 === null || obj2 === undefined) {
     return obj1;
   }
 
@@ -152,7 +153,7 @@ export const deepMergeObjects = (obj1: Record<string, unknown>, obj2: Record<str
         obj2[key] &&
         typeof obj2[key] === "object"
       ) {
-        output[key] = deepMergeObjects(obj1[key] as Record<string, unknown>, obj2[key] as Record<string, unknown>);
+        output[key] = deepMergeObjects(obj1[key], obj2[key]);
       } else {
         output[key] = obj1[key];
       }
