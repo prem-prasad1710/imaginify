@@ -9,7 +9,7 @@ import {navLinks} from  '../../constants/index';
 import {SignedOut} from '@clerk/nextjs';
 import {UserButton} from '@clerk/nextjs';
 import {Button} from '@/components/ui/button';
-const sidebar = () => {
+const Sidebar = () => {
     const pathname = usePathname();
   return (
     <aside className='sidebar'>
@@ -66,4 +66,4 @@ const sidebar = () => {
   )
 }
 
-export default sidebar
+export default Sidebar

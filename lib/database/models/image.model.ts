@@ -1,8 +1,6 @@
 import { Schema } from "mongoose";
-import { title } from "process";
 import {models}  from "mongoose";   
 import { model } from "mongoose";
-import { ObjectId } from "mongoose";
 
  export interface IImage extends Document{
     title: string;
