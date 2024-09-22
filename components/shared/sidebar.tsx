@@ -5,7 +5,7 @@ import Link from 'next/link';
 import Image from 'next/image';
 import {SignedIn} from "@clerk/nextjs";
 import {usePathname} from 'next/navigation';
-import {navLinks} from  '../../../constants/index';
+import {navLinks} from  '../../constants/index';
 import {SignedOut} from '@clerk/nextjs';
 import {UserButton} from '@clerk/nextjs';
 import {Button} from '@/components/ui/button';
