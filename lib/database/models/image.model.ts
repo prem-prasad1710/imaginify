@@ -1,0 +1,48 @@
+import { Schema } from "mongoose";
+import { title } from "process";
+import {models}  from "mongoose";   
+import { model } from "mongoose";
+import { ObjectId } from "mongoose";
+
+ export interface IImage extends Document{
+    title: string;
+    TransformationType: string;
+    publicId: string;
+    secureUrl: URL;
+    width?: number; 
+    height?: number; 
+    config?: object;
+    transformationUrl?: string;
+    aspectRatio?: string;
+    color?: string;
+    prompt?: string;
+    author?: {
+        _id : string;
+        firstName : string;
+        lastName : string;
+    } 
+    createdAt?: Date;
+    updatedAt?: Date;
+}
+
+
+const ImageSchema = new Schema({
+    title :{type : String,required : true},
+    TransformationType :{type : String,required : true},
+    publicId :{type : String,required : true},
+    secureUrl :{type : URL,required : true},
+    width :{type : Number}, 
+    height :{type : Number}, 
+    config :{type : Object},
+    transformationUrl :{type : URL},
+    aspectRatio :{type : Number},
+    color:{type : String},
+    prompt :{type : String},
+    author :{type : Schema.Types.ObjectId, ref : "User"},
+    createdAt :{type : Date, default : Date.now},
+    updatedAt :{type : Date, default : Date.now}
+});
+
+const Image = models?.Image || model("Image", ImageSchema);
+
+export default Image;
