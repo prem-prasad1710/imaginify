@@ -6,7 +6,7 @@ import { model } from "mongoose";
     title: string;
     TransformationType: string;
     publicId: string;
-    secureUrl: URL;
+    secureUrl: string;
     width?: number; 
     height?: number; 
     config?: object;
@@ -33,7 +33,7 @@ const ImageSchema = new Schema({
     height :{type : Number}, 
     config :{type : Object},
     transformationUrl :{type : URL},
-    aspectRatio :{type : Number},
+    aspectRatio :{type : String},
     color:{type : String},
     prompt :{type : String},
     author :{type : Schema.Types.ObjectId, ref : "User"},

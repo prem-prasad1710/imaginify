@@ -7,15 +7,12 @@ interface MongooseConnection {
     promise: Promise<Mongoose> | null;
 }
 
-// Use a more specific type for the global object
-interface GlobalWithMongoose {
-    mongoose: MongooseConnection;
-}
 
-let cached: MongooseConnection = (global as unknown as GlobalWithMongoose).mongoose;
+
+let cached: MongooseConnection = (global as any).mongoose;
 
 if (!cached) {
-    cached = (global as unknown as GlobalWithMongoose).mongoose = {
+    cached = (global as any).mongoose = {
         conn: null,
         promise: null
     };
